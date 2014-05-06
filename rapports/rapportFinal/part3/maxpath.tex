@@ -1,0 +1,49 @@
+\subsection{Maxpath eval}
+
+	Cette heuristique est la plus complexe des trois, puisqu'elle note un plateau en
+	fonction du nombre de chemin disponible. Cela implique donc de pouvoir calculer
+	tout les chemins possible à partir des pions de notre ligne et de celle de l'adversaire.
+
+	%Posséder un réseau de chemins fort,
+	Posséder plusieurs chemin permettant d'accèder à plusieurs endroits similaire est une des
+	clefs de la réussite au Gygès. Si vous construisez deux chemins distincts menant à la base adverse
+	alors la victoire est assurée.
+
+	\begin{figure}[h!]
+	\[
+		\begin{array}{r c l}
+
+			score(C) &= & \sum\limits_{i=0}^{5} \sum\limits_{j=0}^{5}
+			\left\{
+			\begin{array}{r l}
+				i^{C_{i,j}} & $si $ C_{i,j} \neq 0 \\
+				0 & $sinon$ \\
+			\end{array}
+			\right. \\
+
+			&& \\
+
+			base(P) &= &
+			\left\{
+			\begin{array}{r l}
+				10000 & $si la base sud de P est occupée$ \\
+				0 & $sinon$ \\
+			\end{array}
+			\right. \\
+
+			&& \\
+
+			value(P) &= & base(P) + \sum\limits_{m \in M} score(C_m) \\
+
+			&& \\
+
+			maxpathEval(P,Q) &=& value(P) - value(Q)\\
+
+		\end{array}
+	\]
+	\caption[Formule de maxpath eval]{Formule de maxpath eval avec $M$ l'ensemble des pions déplacables pour le joueur,
+	$C_m$ l'ensemble des chemins atteignables à partir du pion $m$,
+	$P$ la matrice représentant le plateau et
+	$Q$ la matrice représentant le plateau retourné.}
+	\label{fig:formula_maxpath_eval}
+	\end{figure}

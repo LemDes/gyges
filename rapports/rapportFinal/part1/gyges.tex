@@ -1,0 +1,119 @@
+\section{Présentation}
+
+	Le Gygès est un jeu de stratégie combinatoire abstrait, c'est à dire un jeu
+	où deux joueurs jouent à tour de rôle, où tous les éléments du jeu sont connus et où le hasard n'intervient
+	pas.
+
+	\vspace{1em}
+	Ce jeu se joue sur un plateau $6\times{}6$, plus deux bases, avec des pions de valeurs 1 à 3 (représentés par
+	des anneaux sur le pions) correspondant à leur capacité de déplacement. Les pions peuvent se déplacer en ligne
+	ou en colonne mais pas en diagonale.
+
+	\vspace{1em}
+	Les pions n'appartiennent à aucun joueur, chaque joueur ne pouvant
+	déplacer que les pions se trouvant sur la ligne non vide la plus proche de sa base.
+
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.35\textwidth]{images/Gyges.png}
+		\caption{Exemple de plateau de Gygès}
+		\label{fig:plateau_de_gyges}
+	\end{figure}
+
+	\paragraph{Le but} Le but du jeu est de réussir à capturer la base adverse avec un pion,
+	le premier joueur réussissant cet objectif gagne et met fin à la partie.
+
+	\paragraph{Les règles} Le Gygès possède un certain nombre de règles qui le démarque de jeux plus
+	\og{}standard\fg{}.
+		\begin{enumerate}
+			\item Un pion se déplace d'autant de case que ça valeur, ni plus ni moins
+			(voir figure 1.3--1.5) ;
+
+			\begin{figure}[h!]
+				\centering
+				\begin{minipage}[h]{0.25\linewidth}
+				\centering
+				\includegraphics[width=\textwidth]{images/move1.png}
+				\caption{Déplacement d'un pion 1}
+				\label{fig:figure1}
+				\end{minipage}
+				\hspace{0.5cm}
+				\begin{minipage}[h]{0.25\linewidth}
+				\centering
+				\includegraphics[width=\textwidth]{images/move2.png}
+				\caption{Déplacement d'un pion 2}
+				\label{fig:figure2}
+				\end{minipage}
+				\hspace{0.5cm}
+				\begin{minipage}[h]{0.25\linewidth}
+				\centering
+				\includegraphics[width=\textwidth]{images/move3.png}
+				\caption{Déplacement d'un pion 3}
+				\label{fig:figure3}
+				\end{minipage}
+				\vspace{-1em}
+			\end{figure}
+
+			\item Un pion peut se déplacer sur les lignes et les colones, mais pas les diagonales ;
+			\item Un pion ne peut pas passer par une case occupée ;
+			\item Si la dernière case du mouvement d'un pion est libre alors il se pose dessus et le tour
+			du joueur s'achève ;
+
+			\item Sinon le joueur a deux possibilités :
+				\begin{enumerate}
+					\item rebondir: Le pion rebondit sur le pion d'arrivée d'autant de case que
+						ce dernier a d'anneaux ; ou
+						\begin{figure}[h!]
+							\centering
+							\includegraphics[width=0.29\textwidth]{images/rebond.png}
+							\caption{Exemple de rebond}
+							\label{fig:rebond}
+						\end{figure}
+					\item remplacer: Le pion remplace le pion d'arrivée, ce dernier pourra alors être
+						reposé sur n'importe quelle case libre du plateau à l'exception des lignes avant
+						la première ligne de l'adversaire.
+						\begin{figure}[h!]
+							\centering
+							\includegraphics[width=0.59\textwidth]{images/remplacement.png}
+							\caption{Exemple de remplacement}
+							\label{fig:remplacement}
+						\end{figure}
+				\end{enumerate}
+			\item Un pion ne peut passer sur une ligne que dans un sens ;
+			\item Un pion ne peut pas passer par une base, il ne peut que y aboutir ; et
+			\item Pour gagner un pion doit finir exactement sur la base adverse, il ne doit pas lui
+				rester de mouvement.
+		\end{enumerate}
+
+	\paragraph{Déroulement d'une partie} Le joueur sud pose ses pions sur sa première ligne
+	suivi du joueur nord. Chaque joueur déplace ensuite à tour de rôle, en commencant par le
+	joueur sud, un pion de leur ligne. La partie s'arrête lorsqu'un joueur a capturé la base
+	adverse.
+
+	\begin{figure}[h!]
+		\centering
+		\begin{minipage}[b]{0.4\linewidth}
+		\centering
+		\includegraphics[width=\textwidth]{images/ex1.png}
+		\end{minipage}
+		\hspace{0.5cm}
+		\begin{minipage}[b]{0.4\linewidth}
+		\centering
+		\includegraphics[width=\textwidth]{images/ex2.png}
+		\end{minipage}
+
+		\begin{minipage}[b]{0.4\linewidth}
+		\centering
+		\includegraphics[width=\textwidth]{images/ex3.png}
+		\end{minipage}
+		\hspace{0.5cm}
+		\begin{minipage}[b]{0.4\linewidth}
+		\centering
+		\includegraphics[width=\textwidth]{images/ex4.png}
+		\end{minipage}
+		\caption{Example de déroulement d'une partie de Gygès}
+	\end{figure}
+
+	\vspace{1em}
+	Les parties sont composées de mouvements complexes mais ne durent généralement
+	pas plus d'une dizaines de coups.

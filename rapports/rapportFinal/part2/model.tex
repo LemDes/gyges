@@ -1,0 +1,17 @@
+\section{Représentation du plateau}
+
+	Le plateau du jeu est divisé en deux partie: la grille principale de 6 cases par 6 cases
+	ainsi que 2 bases, une par joueur.
+
+	\vspace{1em}
+	Les cases sont réprésentées par un entier correspondant à la valeur du pion présent sur la case,
+	$\{1,2,3\}$, ou à $0$ si la case est vide.
+	La grille principale est stockée sous la forme d'une matrice $6\times{}6$ et les bases dans un
+	simple tableau $1\times{}2$, les deux contenant des cases sous forme d'entier.
+
+	\begin{figure}[ht]
+			\centering
+			\includegraphics[width=\textwidth]{images/representation2.png}
+			\caption{Représentation d'un plateau}
+			\label{fig:plateau}
+	\end{figure}

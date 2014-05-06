@@ -1,0 +1,69 @@
+%\newpage
+\subsection{\'Elagage alpha-beta}
+
+	%\subsection{Contexte}
+		Pour des jeux complexes tels que les échecs, le go ou le Gygès il
+		n'est pas possible de représenter l'intégralité de l'arbre de recherche,
+		on se limite donc à une profondeur donnée, mais ce n'est pas la seule
+		technique possible pour réduire le temps de parcours de l'arbre de recherche.
+
+		\vspace{1em}
+		L'élagage alpha-beta est un algorithme visant à réduire le nombre de n\oe{}uds
+		évalués par un algorithme minimax, pour cela il limite son exploration de l'arbre de
+		recherche en n'évaluant pas les n\oe{}uds qui ne contribueront pas au calcul du gain de
+		la racine. Plus exactement il ne va pas explorer plus profondement une branche dont
+		le résultat sera forcement inférieur à un n\oe{}ud déjà évalué.
+		
+		\vspace{1em}
+		L'algorithme alpha-beta tient son nom de ces deux paramètres alpha et beta
+		représentant respectivement le minimum souhaité et le maximum espéré.
+		Donc lorsqu'on tombe sur un coup ayant une valeur moins élevée (resp.
+		plus élevée) que alpha (resp. beta) alors on sait que ce n\oe{}ud ne participe
+		pas au calcul et donc peut être élagé.
+
+	%\subsection{Exemple}
+	%	%Repartons sur la figure \ref{fig:minimax_ex_3} représentant l'étape finale du minimax,
+	%	%et regardons l'influence que l'élagage alpha-beta aurait eu.
+	%
+	%	%\begin{figure}[h]
+	%	%	\centering
+	%	%	\includegraphics[width=0.4\textwidth]{images/alphabeta_ex.png}
+	%	%	\caption{Alpha-beta étape 1}
+	%	%	\label{fig:aphaBeta_ex_1}
+	%	%\end{figure}
+	%
+	%	Nous avons déjà sur le troisième n\oe{}ud vert une valeur de 4, ce qui est déjà
+	%	supérieur aux autres n\oe{}uds vert, or le n\oe{}ud racine choisira le sous-n\oe{}ud
+	%	avec la valeur maximal, donc quelque soit la valeur du second sous-n\oe{}ud rouge
+	%	le n\oe{}ud choisis sera le troisième n\oe{}ud vert. Son évaluation est donc inutile,
+	%	il se fait élager.
+	%
+	%	\vspace{1em}
+	%	Ici seul l'évaluation d'un n\oe{}ud a été gagner, mais dans un arbre de recherche de très
+	%	grande taille cela peut être des dizaines de n\oe{}uds ayant chacun de nombreux sous-n\oe{}uds
+	%	dont l'évaluation aurait été gagner.
+
+%	\subsection{Pseudo-code}
+%		Voici un exemple de pseudo-code pour l'algorithme negamax avec élagage alpha-beta:
+%
+%		\begin{figure}[h!]
+%		\begin{mdframed}
+%			\begin{alltt}
+%fonction negamax(node, depth, a, b, color)
+%    if node is a terminal node or depth = 0
+%        return color * the heuristic value of node
+%    else
+%        foreach child of node
+%            val := -negamax(child, depth-1, -b, -a, -color)
+%            {the following if statement constitutes alpha-beta pruning}
+%            if val>=b
+%                return val
+%            if val>=a
+%                a:=val
+%        return a
+%		\end{alltt}
+%		\end{mdframed}
+%
+%	\caption{Pseudo-code de l'algorithme negamax}
+%	\label{fig:pseudocode_negamax}
+%	\end{figure}

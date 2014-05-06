@@ -1,0 +1,54 @@
+\chapter{Manuel}
+
+	\section{Ligne de commande}
+	
+		On utilise le logiciel en utilisant la commande
+		\texttt{java -jar gyges.jar}, cette commande prend
+		plusieurs paramètres pour régler la partie.
+		
+		\vspace{1em}
+		On peut choisir la fonction d'évaluation utilisée avec les
+		paramètres \texttt{-{}-eval1 NomDeLaClasse} et \texttt{-{}-eval2 NomDeLaClasse},
+		permettant de changer la fonction pour le joueur 1 et le joueur 2.
+		Sont disponible les fonctions suivante: \emph{BasicEval}, \emph{DistanceEval} et
+		\emph{MaxPathEval}.
+		
+		C'est la fonction basic eval qui est utilisé par defaut si aucune fonction
+		n'est passée en paramètes ou si elle est incorrecte.
+		
+		\vspace{1em}
+		De même on peut choisir l'algorithme de recherche avec les paramètres \texttt{-{}-ai1 NomDeLaClasse}
+		et \texttt{-{}-ai2 NomDeLaClasse}.
+		Sont disponible les algorithmes suivant: \emph{NegamaxMover} et \emph{MtdfMover}.
+		
+		C'est l'algorithme MTD-f qui est utilisé par defaut.
+		
+		\vspace{1em}
+		Ces algorithme prennent en paramètre la profondeur de recherche qui peuvent
+		être configurés avec les paramètres \texttt{-{}-depthJ1 Profondeur} et\\
+		\texttt{-{}-depthJ2 Profondeur} ou avec \texttt{-{}-depth Profondeur} pour régler les deux
+		en même temps.
+		
+		La valeur par défaut est de 2.
+		
+		\vspace{1em}
+		Il est possible de définir les positions de départ avec les paramètres
+		\texttt{--pos1 Position} et \texttt{--pos2 Position} où \emph{Position}
+		est une suite de six chiffres réprésentant les pions.
+		
+	\section{Interface graphique}
+		On peut lancer une interface graphique avec l'option \texttt{-{}-ui}, dans ce cas
+		on peut rajouter des joueurs humains en passant la valeur \texttt{human} à un ou
+		aux deux paramètres \texttt{-{}-ai}.
+		La création de joueurs humains passent forcement le jeu en mode interface graphique.
+		
+		\vspace{1em}
+		Le joueur humain sélectionne un pion avec un clic droit de souris, effectue
+		un rebond avec un clic de molette et pose le pion avec le clic gauche.
+		
+		\begin{figure}[h!]
+			\centering
+			\includegraphics[width=\textwidth]{images/uiPlaying.png}
+			\caption{Capture d'écran du jeu}
+			\label{fig:screenshot_game}
+		\end{figure}

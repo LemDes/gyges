@@ -1,0 +1,87 @@
+\documentclass{beamer}
+
+\usepackage[francais]{babel}
+\usepackage[latin1]{inputenc}
+\usepackage[T1]{fontenc}
+
+\usepackage{pslatex}
+\usetheme{AnnArbor}
+\useoutertheme{shadow}
+\setbeamertemplate{navigation symbols}{}
+
+\title{Intelligence artificielle pour le jeu Gygès}
+\subtitle{Création d'une IA pour le jeu de Gygès}
+\author{Valentin \textsc{Lemière} - Guillaume \textsc{Desquesnes}}
+
+\begin{document}
+\begin{Large}
+
+	\frame{\titlepage}
+
+	\begin{frame}{Contexte}
+		
+		\begin{itemize}
+			\item L'intelligence artificielle utilise fréquement des jeux comme support de recherche ;
+			\item Certains jeux ont été extremement étudiés, tel que les échecs ;
+			\item Le Gygès a un facteur de branchement très élevé, plus que les échecs ;
+			\item Le Gygès présente donc un intérêt de modélisation.
+		\end{itemize}
+
+	\end{frame}
+
+	\begin{frame}{Enjeux}
+		
+		\begin{itemize}			
+			\item Réussir à trouver une fonction d'évaluation pour un jeu à fort branchement ;
+			\item Gérer un jeu où les pièces sont déplacables par tout les joueurs ;
+			\item Concevoir un moyen de détecter et d'éviter les cycles ;
+			\item Trouver une alternative aux bibliothèques de début de partie.
+		\end{itemize}
+			
+	\end{frame}
+
+	\begin{frame}{Objectifs}
+		
+		Développer une IA de jeu de Gygès capable de:
+		
+		\begin{itemize}
+			\item déterminer quels pions peuvent être jouer ;
+			\item lister les coups possibles ;
+			\item évaluer un coup ;
+			\item déterminer le meilleur coup en tenant compte de plusieurs coup à l'avance ;
+			\item jouer un coup.
+		\end{itemize}
+		
+	\end{frame}
+	
+	\begin{frame}{Description du projet}
+	
+		\begin{itemize}
+			\item Modélisation du Gygès ;
+			\item Développement du module de jeu ;
+			\item Développement d'une IA basique ;
+			\item Développement d'une fonction d'évaluation basique ;
+			\item Développement d'une fonction d'évaluation plus performante ;
+			\item Développement d'une interface graphique ;
+			\item \'Evaluer l'IA.
+		\end{itemize}
+	
+	\end{frame}
+	
+	\begin{frame}{Jalons du projet}
+		
+		\begin{itemize}
+			\item 10/10 début du projet ;
+			\item 25/10 projet définit ;
+			\item 16/11 livraison de l'IA basique + charte ;
+			\item 30/11 livraison de la fonction d'évaluation qui prend en compte plusieurs coup à l'avance + 1er rapport ;
+			\item 21/12 livraison d'une fonction d'évaluation plus performante + 2ème rapport ;
+			\item 25/01 livraison du 3ème rapport ;
+			\item 15/02 livraison de l'interface graphique + 4ème rapport ;
+			\item 08/03 livraison d'un rapport de test de l'IA + 5ème rapport.
+		\end{itemize}
+		
+	\end{frame}
+
+\end{Large}	
+\end{document}

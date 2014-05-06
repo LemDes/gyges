@@ -1,0 +1,44 @@
+\subsection{Distance eval}
+
+	Le but de cette heuristique est de faire avancer les pions le plus possible afin de se rapprocher de
+	la	base adverse pour créer des opportunités. Il est en effet évident que plus les pions sont proche
+	de la base adverse, et par conséquent loin de la notre, plus les chances de victoires sont grandes.
+
+
+	\begin{figure}[h!]
+	\[
+		\begin{array}{r c l}
+			f(x,i) &=&
+			\left\{
+			\begin{array}{r l}
+				i & $si$~ x \neq 0 \\
+				0 & $sinon$\\
+			\end{array}
+			\right. \\
+
+			&& \\
+
+			base(P) &= &
+			\left\{
+			\begin{array}{r l}
+				10000 & $si la base sud de P est occupée$ \\
+				0 & $sinon$ \\
+			\end{array}
+			\right. \\
+
+			&& \\
+
+			value(P) &=&  base(P) + \sum\limits_{i=0}^{5} \sum\limits_{j=0}^{5} f(P_{i,j},i) \\
+
+			&& \\
+
+			distanceEval(P,Q) &=& value(P) - value(Q)\\
+		\end{array}
+	\]
+	\caption[Formule de distance eval]{Formule de distance eval avec $P$ la matrice représentant le
+	plateau et $Q$ la matrice représentant le plateau retourné.}
+	\label{fig:formula_dist_eval}
+	\end{figure}
+
+	%\vspace{1em}
+	%Voir figure \ref{fig:formula_dist_eval} pour une formule de cette heuristique.

@@ -1,0 +1,88 @@
+<?xml version="1.0" ?>
+<project name="gyges" default="runui" basedir=".">
+
+	<!-- set global properties for this build -->
+	<property name="src" location="src"/>
+	<property name="libs" location="libs"/>
+	<property name="test" location="tests"/>
+	<property name="build" location="build"/>
+	<property name="dist" location="dist"/>
+	<property name="doc" location="doc"/>
+	<property name="props" location="props"/>
+
+	<presetdef name="javac">
+		<javac includeantruntime="false" />
+	</presetdef>
+
+	<target name="compile">
+		<mkdir dir="${build}" />
+		<mkdir dir="${build}/props" />
+
+		<copy todir="${build}/props">
+			<fileset dir="${props}"/>
+		</copy>
+
+		<copy todir="${build}">
+			<fileset dir="${libs}"/>
+		</copy>
+
+		<javac srcdir="${src}" destdir="${build}" debug="on">
+			<compilerarg value="-Xlint:unchecked" />
+		</javac>
+	</target>
+
+	<target name="compiletest" depends="compile">
+		<javac srcdir="${test}" destdir="${build}" classpath="${build}" debug="on" />
+	</target>
+
+	<target name="doc">
+		<mkdir dir="${doc}" />
+
+		<javadoc sourcepath="${src}" destdir="${doc}" encoding="utf-8" charset="utf-8" docencoding="utf-8" />
+	</target>
+
+	<target name="dist" depends="compile">
+		<mkdir dir="${dist}" />
+
+		<jar basedir="${build}" destfile="${dist}/gyges.jar">
+			<manifest>
+				<attribute name="Main-Class" value="Main"/>
+			</manifest>
+		</jar>
+	</target>
+
+	<target name="test" depends="compiletest">
+		<java fork="yes" classname="UnitTest" classpath="${build}">
+			<jvmarg value="-ea" />
+		</java>
+	</target>
+
+	<target name="clean">
+		<delete dir="${build}" />
+		<delete dir="${build-dev}" />
+	</target>
+
+	<target name="run" depends="compile">
+		<java fork="yes" classname="Main" classpath="${build}">
+		</java>
+	</target>
+
+	<target name="runui" depends="compile">
+		<java fork="yes" classname="Main" classpath="${build}">
+			<arg value="--ui" />
+			<arg value="--eval1" />
+			<arg value="MaxPathEval" />
+		</java>
+	</target>
+	
+	<target name="runHuman" depends="compile">
+		<java fork="yes" classname="Main" classpath="${build}">
+			<arg value="--ui" />
+			<arg value="--eval1" />
+			<arg value="MaxPathEval" />
+			<arg value="--ai2" />
+			<arg value="human" />
+		</java>
+	</target>
+
+</project>

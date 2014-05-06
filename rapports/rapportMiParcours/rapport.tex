@@ -1,0 +1,406 @@
+\documentclass[a4paper]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage[french]{babel}
+\usepackage{enumitem}
+
+\usepackage{graphicx}
+\usepackage{caption}
+
+\title{Pré-rapport du projet de Gygès}
+\author{Valentin \textsc{Lemière} - Guillaume \textsc{Desquesnes}}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section{Présentation}
+
+	Pour ce projet, il nous a été demandé de créer une intelligence artificielle
+	pour le jeu de Gygès.
+
+	\subsection{Le jeu de Gygès}
+		\paragraph{Présentation} Le Gygès est un jeu de stratégie combinatoire abstrait, c'est à dire un jeu
+		à deux joueurs jouant à tour de rôle, où tous les éléments du jeu sont connus et où le hasard n'intervient
+		pas. Ce jeu se joue sur un plateau 6x6, plus deux bases, avec des pions de valeurs 1 à 3 (représentés par
+		des anneaux sur le pions) correspondant à leur capacité de déplacement. Les pions peuvent se déplacer en ligne
+		ou en colonne mais pas en diagonale. Les pions n'appartiennent à aucun joueur, chaque joueur ne pouvant
+		déplacer que les pions se trouvant sur la ligne non vide la plus proche de sa base.
+
+		\begin{figure}[h]
+			\centering
+			\includegraphics[width=0.5\textwidth]{Gyges.png}
+			\caption{Exemple de plateau de Gygès}
+			\label{fig:plateau_de_gyges}
+		\end{figure}
+
+
+		\paragraph{Le but} Le but du jeu est de réussir à capturer la base adverse avec un pion,
+		le premier joueur réussissant cet objectif gagne et met fin à la partie.
+
+		\paragraph{Les règles} Le Gygès possède un certain nombre de règles qui le démarque de jeux plus
+		\og{}standard\fg{}:
+			\begin{itemize}
+				\item Un pion se déplace d'autant de case que ça valeur, ni plus ni moins ;
+
+				\begin{figure}[ht]
+					\centering
+					\begin{minipage}[b]{0.28\linewidth}
+					\centering
+					\includegraphics[width=\textwidth]{move1.png}
+					\caption{Déplacement d'un pion 1}
+					\label{fig:figure1}
+					\end{minipage}
+					\hspace{0.5cm}
+					\begin{minipage}[b]{0.28\linewidth}
+					\centering
+					\includegraphics[width=\textwidth]{move2.png}
+					\caption{Déplacement d'un pion 2}
+					\label{fig:figure2}
+					\end{minipage}
+					\hspace{0.5cm}
+					\begin{minipage}[b]{0.28\linewidth}
+					\centering
+					\includegraphics[width=\textwidth]{move3.png}
+					\caption{Déplacement d'un pion 3}
+					\label{fig:figure3}
+					\end{minipage}
+					\caption{Déplacement des pions}
+				\end{figure}
+
+				\item Un pion peut se déplacer sur les lignes et les colones, mais pas les diagonales ;
+				\item Un pion ne peut pas passer par une case occupée ;
+				\item Si la dernière case du mouvement d'un pion est libre alors il se pose dessus et le tour
+				du joueur s'achève ;
+				\item Sinon le joueur a deux possibilités :
+					\begin{description}
+						\item[Rebondir] Le pion rebondit sur le pion d'arrivée d'autant de case que
+							ce dernier a d'anneaux ;
+							\begin{figure}[h]
+								\centering
+								\includegraphics[width=0.25\textwidth]{rebond.png}
+								\caption{Exemple de rebond}
+								\label{fig:plateau_de_gyges}
+							\end{figure}
+						\item[Remplacer] Le pion remplace le pion d'arrivée, ce dernier pourra alors être
+							reposé sur n'importe quelle case libre du plateau à l'exception des lignes avant
+							la première ligne de l'adversaire.
+							\begin{figure}[h]
+								\centering
+								\includegraphics[width=0.6\textwidth]{remplacement.png}
+								\caption{Exemple de remplacement}
+								\label{fig:plateau_de_gyges}
+							\end{figure}
+					\end{description}
+				\item Un pion ne peut passer sur une ligne que dans un sens ;
+				\item Un pion ne peut pas passer par une base, il ne peut que y aboutir ;
+				\item Pour gagner un pion doit finir exactement sur la base adverse, il ne doit pas lui
+					rester de mouvement.
+			\end{itemize}
+
+		\paragraph{Déroulement d'une partie} Le joueur sud pose ses pions sur sa première ligne
+		suivi du joueur nord. Chaque joueur déplace ensuite à tour de rôle, en commencant par le
+		joueur sud, un pion de leur ligne. La partie s'arrête lorsqu'un joueur a capturé la base
+		adverse.
+
+		\begin{figure}[ht]
+			\centering
+			\begin{minipage}[b]{0.4\linewidth}
+			\centering
+			\includegraphics[width=\textwidth]{ex1.png}
+			\end{minipage}
+			\hspace{0.5cm}
+			\begin{minipage}[b]{0.4\linewidth}
+			\centering
+			\includegraphics[width=\textwidth]{ex2.png}
+			\end{minipage}
+
+			\begin{minipage}[b]{0.4\linewidth}
+			\centering
+			\includegraphics[width=\textwidth]{ex3.png}
+			\end{minipage}
+			\hspace{0.5cm}
+			\begin{minipage}[b]{0.4\linewidth}
+			\centering
+			\includegraphics[width=\textwidth]{ex4.png}
+			\end{minipage}
+			\caption{Example de déroulement d'une partie de Gygès}
+		\end{figure}
+
+
+	Nous développons ce projet pour Grégory \textsc{Bonnet}. Il pourra être utilisé
+	par des joueurs souhaitant s'entrainer ou jouer seul.
+
+	\subsection{Objectifs}
+		Nous avons comme objectifs:
+
+		\vspace{1em}
+		\begin{itemize}
+			\item De commencer par étudier le jeu de Gygès pour pouvoir le modéliser:
+				\begin{itemize}
+					\item lister les règles spéciales ;
+					\item coder le mouvement des pions ;
+					\item déterminer quels pions chaque joueur peut déplacer.
+				\end{itemize}
+
+			\vspace{1em}
+			\item Ensuite de créer un module de jeu permettant le déroulement d'une partie:
+				\begin{itemize}
+					\item création d'un plateau ;
+					\item initialisation des IA ;
+					\item déroulement tour à tour jusqu'a la victoire d'un des deux joueurs.
+				\end{itemize}
+
+			\vspace{1em}
+			\item lister les coups possible à partir d'un plateau:
+				pour chaque pions déplaçable lister quelles sont les positions attégniables ;
+
+			\vspace{1em}
+			\item déterminer si un coup est légal: existe-t-il un mouvement permettant
+				de passer du plateau de départ à celui d'arrivé ;
+
+			\vspace{1em}
+			\item créer une fonction d'évaluation de plateau ;
+
+			\vspace{1em}
+			\item implémenter un algorithme de recherche alpha-beta, permettant de ne pas
+				jouer au hasard ;
+
+			\vspace{1em}
+			\item trouver et implémenter des fonctions d'évaluation plus performantes,
+				pour jouer de meilleurs coups ;
+
+			\vspace{1em}
+			\item trouver et implémenter des algorithmes de recherche plus performants,
+				permettant une recherche plus profonde et donc de meilleurs coups ;
+
+			\vspace{1em}
+			\item développer une interface graphique pour pouvoir jouer facilement contre
+				une IA.
+		\end{itemize}
+
+\section{Le point de départ}
+
+	\subsection{Logiciels}
+		\`A ce jour, nous n'avons trouvé qu'une seule application permettant de jouer
+		contre une intelligence artificielle au Gygès, on peut la trouver sur le site suivant: \\
+		\texttt{www.gyges.com}.
+		Cependant, cette application n'est pas capable de trouver tout les coups. De plus
+		cette application n'ayant pas son code source disponible, il nous est impossible de l'utiliser pour ajouter et
+		tester différents algorithmes, dans le but de trouver le plus adapté pour résoudre les
+		problèmes du Gygès.
+
+
+		Nous n'avons donc aucun composant sur lequel baser notre projet, il va falloir tout développer.
+
+	\subsection{Algorithmes}
+		Il existe aujourd'hui divers algorithmes permettant de trouver un bon coup dans un jeu,
+		il va donc falloir déterminer quel sera le plus adapté. Voici les algorithmes qui nous semblent les
+		plus pertinants, d'après nos recherches, pour notre problème:
+
+		\paragraph{Minimax} Un des plus simples est le \emph{minimax}, cet algorithme assigne à un n\oe{}ud
+		la valeur minimale ou maximale de ses n\oe{}uds fils, respectivement lorsque le n\oe{}ud resprésente
+		le tour de l'adversaire ou le tour du joueur. Pour un n\oe{}ud feuille sa valeur correspond à la valeur
+		retournée par la fonction d'évaluation pour le plateau représenté par ce n\oe{}ud. Cet algorithme cherche donc
+		à minimiser les pertes tout en maximisant les gains.
+
+		\paragraph{Search EXtension} Une amélioration du \emph{minimax} est le \emph{Search EXtension},
+		cet algorithme permet d'avoir une profondeur de recherche variable. Plus le coup semble intéressant, plus
+		la branche sera explorée et au contraire, moins le mouvement est intéressant, moins on explorera la branche.
+
+		\paragraph{\'Elagage Alpha-Beta} Une optimisation du \emph{minimax}, l'élagage \emph{Alpha-Beta}
+		permet de réduire le nombre de n\oe{}uds évalués. L'algorithme évite d'évaluer des n\oe{}uds dont
+		on est sûr que leur qualité sera inférieure à un n\oe{}ud déjà évalué, il permet donc d'optimiser
+		grandement l'algorithme minimax sans en modifier le résultat.
+
+		\paragraph{Negamax} Une variante du \emph{minimax}, en se basant sur le fait
+		que $max(a,b) = -min(-a,-b)$ et que la valeur de coup pour le joueur adverse et la négation du
+		coup pour le joueur courant, pour simplifier l'algorithme en n'utilisant que des \emph{max}
+		au lieu d'une alternance \emph{max}, \emph{min}.
+
+		\paragraph{MTD-f} Une optimisation du \emph{minimax}, le \emph{MTD-f} se sert de tables de transposition
+		pour garder en mémoire la valeur d'un plateau et ainsi ne noter qu'une seule fois les plateaux identiques.
+		C'est une des variantes du \emph{minimax} la plus rapide.
+
+		\paragraph{MCTS} La recherche arborescente Monte-Carlo est une recherche où l'on construit un arbre de recherche
+		n\oe{}uds à n\oe{}uds en fonction du résultat de parties simulées aléatoirement.
+
+\section{Le point d'arrivée espéré}
+	\subsection{Ce que nous allons réaliser}
+		Nous allons réaliser un logiciel doté d'une interface graphique permettant à un ou deux joueurs
+		de jouer au jeu de Gygès. L'interface comportera un menu permettant de sélectioner l'intelligence
+		artificielle que le joueur veut affronter, pour jouer il suffira de cliquer sur le pion à déplacer
+		puis de cliquer sur sa destination. De plus pour chaque intelligence artificielle, il sera possible
+		de régler la profondeur de recherche ou le temps maximal alloué pour permettre de doser la difficulté.
+
+
+		\vspace{1em}
+		Enfin il sera possible de générer des parties IA contre IA sans interface graphique
+		afin de pouvoir avoir accès à des données de jeu qui sont facilement exploitables.
+
+	\subsection{Ce que nous allons développer}
+		Nous allons développer un moteur de jeu, celui ci permettra de générer les coups légaux à partir d'un plateau
+		et de vérifier si un coup est légal, c'est à dire qu'il est possible de passer du plateau de départ à celui
+		d'arrivé.
+
+
+		Nous définirons aussi plusieurs fonctions d'évaluation de plateaux, permettant ainsi d'avoir plusieurs
+		comportements possible pour l'intelligence artificielle et/ou plusieurs vitesses de calcul.
+
+		Enfin, nous implémenterons plusieurs algorithmes de recherche permettant de déterminer le meilleur coup à jouer
+		d'après notre intelligence artificielle pour une profondeur	de recherche donnée, afin de pouvoir trouver lesquels
+		se prettent le plus aux problèmes que pose le Gygès: très fort facteur de branchement et règles atypiques.
+
+		\vspace{1em}
+		Nous allons, dans un premier temps, développer les algorithmes Negamax et MTD-f, avec un élagage Alpha-Beta ainsi
+		qu'un perceptron multicouche comme l'une des fonctions d'évaluations.
+
+	\subsection{Comment cela répond-il aux objectifs ?}
+		Ce produit permettra le déroulement d'une partie, quelque soit le nombre de joueur humain.
+		Il pourra lister l'ensemble des coups possible à partir d'un plateau et vérifier
+		si un coup est légal.
+
+		\vspace{1em}
+		De plus, il contiendra plusieurs fonctions d'évaluation aux caractéristiques variées, performantes sur
+		le temps ou sur la qualité de l'évaluation. De même, il possèdera plusieurs algorithmes de recherches
+		variés performants d'un point de vue temporel
+		ou d'utilisation de la mémoire.
+
+		\vspace{1em}
+		Enfin, il possèdera une interface graphique qui permet de jouer facilement au jeu.
+
+	\subsection{Ce que nous avons déjà développé}
+		Nous avons déjà développé le moteur de jeu ainsi qu'un système générique permettant d'implémenter
+		aisément différents types d'algorithme de recherche, ainsi qu'un système similaire pour les
+		fonctions d'évaluations.
+
+		\vspace{1em}
+		Nous n'avons implémenté qu'un seul algorithme de recherche pour le moment :
+		un algorithme \emph{negamax} avec élagage alpha-beta.
+
+		\vspace{1em}
+		Nous avons développé plusieurs fonctions d'évalution se basant sur la position des pions sur le plateau,
+		indépendament les uns des autres ou non. Nous avons ainsi pu déterminer que trouver une fonction d'évaluation
+		pertinante est très compliqué. C'est pour cela que nous allons implémenter un perceptron multicouche, qui est un
+		algorithme permettant de régresser une fonction inconnue, ici celle d'évaluation du plateau de Gygès, grace à un
+		apprentissage à base d'analyse de parties déjà jouées.
+
+\section{Organisation du travail}
+	\subsection{Techniques utilisées}
+		Nous utilisons une technique de développement agile: \emph{l'extreme programming}. Cette méthode se
+		base sur des cycles de développement rapides, ce qui nous permet d'avoir de fréquentes versions
+		fonctionnelles et donc d'avoir des retours régulier du client sur le projet et de pouvoir ainsi
+		s'adapter facilement à ses nouveaux besoins.
+
+		\vspace{1em}
+		De plus cela s'adapte bien à notre programation en binôme.
+
+	\subsection{Répartition du travail}
+		D'un point de vue recherche, chacun recherche différents algorithmes permettant d'accèlerer le temps
+		de recherche alpha-beta, ainsi que différentes fonctions d'évaluation de plateaux.
+
+
+		Du point de vue de l'implémentation, nous travaillons majoritairement ensemble, sur un seul ordinateur.
+		Cela nous permet de corriger et de trouver plus rapidement les bugs, ainsi que d'optimiser et harmoniser
+		le code.
+
+
+		De plus cela facilite aussi la compréhension globale du code afin que chacun puisse aisément implémenter
+		de nouvelles fonctionnalité	de manière séparée.
+
+
+		De même nous nous efforçons de rendre le code le plus modulaire possible afin de pouvoir facilement rajouter
+		de nouvelles fonctions d'évaluation ou de nouveaux algorithmes de recherches.
+
+	\subsection{Problèmes}
+		Plusieurs problèmes se posent, tout d'abord il est difficile de trouver une fonction d'évaluation pertinante
+		pour noter un plateau selon un joueur, le Gygès étant asymètrique, qui ne soit pas trop complexe car cette
+		fonction sera appelée un très grand nombres de fois.
+
+
+		Ensuite il nous faut implémenter des algorithmes de parcours, cependant ces algorithmes d'apparence simple deviennent
+		complexe lorsqu'il s'agit de les implémenter. De plus il est difficile de déterminer si un algorithme est adapté
+		pour résoudre le Gygès, il faut donc le tester pour savoir si il est adapté ou non.
+
+
+		Enfin il faudra optimiser le code et les algorithmes au maximum de nos capacités, afin de reduire la complexité et la mémoire
+		utilisée, pour soit reduire le temps de calcul ou augmenter la profondeur de recherche.
+
+\section{Conclusion}
+	En conclusion, ce projet est avant tout un projet de recherche visant à trouver et tester différents algorithmes de recherche
+	de coup ainsi que des fonctions d'évaluations sur le jeu de Gygès. Il nous faudra effectuer de nombreux tests pour classer
+	les algorithmes selon leur temps de calul et les fonctions d'évaluation selon leur performances et leur capacité à faire gagner le joueur.
+	L'extreme programming est un modèle de développement qui s'adapte bien à la nature itérative de notre projet.
+
+\newpage
+\appendix
+\section{Lexique}
+	\begin{description}[style=nextline]
+		\item[Algorithme Search EXtension] Une amélioration du \emph{minimax} est le \emph{Search EXtension},
+		cet algorithme permet d'avoir une profondeur de recherche variable. Plus le coup semble intéressant, plus
+		la branche sera explorée et au contraire, moins le mouvement est intéressant, moins on explorera la branche.
+
+		\item[\'Elagage Alpha-Beta] Une amélioration du \emph{minimax} est le \emph{Search EXtension},
+		cet algorithme permet d'avoir une profondeur de recherche variable. Plus le coup semble intéressant, plus
+		la branche sera explorée et au contraire, moins le mouvement est intéressant, moins on explorera la branche.
+
+		\item[Intelligence artificielle] Système informatique mimant les capacités de réflexions
+		d'un être humain. Ici fait référence à la partie du programme émulant un joueur.
+
+		\item[Facteur de branchement] Nombre de plateaux possible depuis un plateau départ.
+
+		\item[Fonction d'évaluation] Fonction prenant en entrée un plateau de jeu et sortant la valeur de
+		ce plateau.
+
+		\item[Horizon] Limite de calcul dans l'arbre de recherche. Fait référence au fait qu'un très bon coup peut
+		se cacher derrière le dernier coup calculé, mais qu'il est impossible de le savoir.
+
+		\item[Jeu combinatoire abstrait] Type de jeu où deux joueurs ou équipes d'affrontent et jouent à tour de rôle,
+		tous les éléments sont connus et où le hasard n'intervient pas.
+
+		\item[Minimax] Simple, cet algorithme assigne à un n\oe{}ud la valeur minimale ou maximale de ses
+		n\oe{}uds fils, respectivement lorsque le n\oe{}ud resprésente le tour de l'adversaire ou le tour
+		du joueur. Pour un n\oe{}ud feuille sa valeur correspond à la valeur retournée par la fonction
+		d'évaluation pour le plateau représenté par ce n\oe{}ud. Cet algorithme cherche donc à minimiser
+		les pertes tout en maximisant les gains.
+
+		\item[MTD-f] Une optimisation du \emph{minimax}, le \emph{MTD-f} se sert de tables de transposition
+		pour garder en mémoire la valeur d'un plateau et ainsi ne noter qu'une seule fois les plateaux identiques.
+		C'est une des variantes du \emph{minimax} la plus rapide.
+
+		\item[Negamax] Une variante du \emph{minimax}, en se basant sur le fait
+		que $max(a,b) = -min(-a,-b)$ et que la valeur de coup pour le joueur adverse et la négation du
+		coup pour le joueur courant, pour simplifier l'algorithme en n'utilisant que des \emph{max}
+		au lieu d'une alternance \emph{max}, \emph{min}.
+
+		\item[Perceptron multicouche] Réseau de neurones formel organisé en plusieurs couche utilisant une fonction de sortie
+		de type sigmoïde. Utiliser comme classifieur non linéaire ou pour la régression de fonction inconnue.
+
+		\item[Recherche Monte-Carlo (Monte-Carlo Tree Search)] La recherche arborescente Monte-Carlo est une recherche
+		où l'on construit un arbre de recherche n\oe{}uds à n\oe{}uds en fonction du résultat de parties simulées aléatoirement.
+
+		\item[Table de transposition] Permet de conserver en mémoire l'évaluation d'un n\oe{}ud et ainsi éviter une réévalutation
+		coûteuse.
+	\end{description}
+
+\section{Sources}
+	Toutes les images de plateau de Gygès proviennent du site: \texttt{www.gyges.com}.
+
+\section{Tests}
+	Nous avons effectué un test comparant le temps d'exécution d'un coup, suivant les fonctions d'évaluation, en fonction de la
+	profondeur de recherche.
+
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=\textwidth]{compaFonction.png}
+		\caption{Comparaison des fonctions d'évaluations}
+		\label{fig:plateau_de_gyges}
+	\end{figure}
+
+	On remarque donc que la seconde fonction voit son temps requis augmenter exponentiellement avec la profondeur, elle
+	est donc inadaptée à notre projet de Gygès car il nous faut une fonction d'évaluation rapide pour pouvoir tester
+	un très grand nombre de plateaux.
+
+\end{document}

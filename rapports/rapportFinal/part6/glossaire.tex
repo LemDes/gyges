@@ -1,0 +1,63 @@
+\chapter{Glossaire}
+
+	\begin{description}[style=nextline]
+		%\item[Algorithme Search EXtension] Une amélioration du \emph{minimax} est le \emph{Search EXtension},
+		%cet algorithme permet d'avoir une profondeur de recherche variable. Plus le coup semble intéressant, plus
+		%la branche sera explorée et au contraire, moins le mouvement est intéressant, moins on explorera la branche.
+
+		\item[Chemin] Ensemble de pions permettant de se déplacer via rebond.
+
+		\item[Cycle] Ensemble de coups remettant le jeu dans sa position précédente.
+
+		\item[\'Elagage Alpha-Beta] Algorithme visant à réduire le nombre de n\oe{}uds
+		évalués par un algorithme minimax en excluant les n\oe{}uds qui ne contriburont
+		pas au calcul du gain de la racine.
+
+		\item[Intelligence artificielle] Système informatique mimant les capacités de réflexions
+		d'un être humain. Ici fait référence à la partie du programme émulant un joueur.
+
+		\item[Facteur de branchement] Nombre de plateaux possible depuis un plateau départ.
+
+		\item[Fonction d'évaluation] Fonction prenant en entrée un plateau de jeu et sortant la valeur de
+		ce plateau.
+
+		\item[Heuristique] Algorithme qui fourni une approximation d'un résultat de façon plus rapide
+		qu'un algorithme exacte.
+
+		\item[Horizon] Limite de calcul dans l'arbre de recherche. Fait référence au fait qu'un très bon coup peut
+		se cacher derrière le dernier coup calculé, mais qu'il est impossible de le savoir.
+
+		\item[Jeu combinatoire abstrait] Type de jeu où deux joueurs ou équipes d'affrontent et jouent à tour de rôle,
+		tous les éléments sont connus et où le hasard n'intervient pas.
+
+		\item[Minimax] Simple, cet algorithme assigne à un n\oe{}ud la valeur minimale ou maximale de ses
+		n\oe{}uds fils, respectivement lorsque le n\oe{}ud resprésente le tour de l'adversaire ou le tour
+		du joueur. Pour un n\oe{}ud feuille sa valeur correspond à la valeur retournée par la fonction
+		d'évaluation pour le plateau représenté par ce n\oe{}ud. Cet algorithme cherche donc à minimiser
+		les pertes tout en maximisant les gains.
+
+		\item[MTD-f] Une optimisation du \emph{minimax}, le \emph{MTD-f} se sert de tables de transposition
+		pour garder en mémoire la valeur d'un plateau et ainsi ne noter qu'une seule fois les plateaux identiques.
+		C'est une des variantes du \emph{minimax} la plus rapide.
+
+		\item[Negamax] Une variante du \emph{minimax}, en se basant sur le fait
+		que $max(a,b) = -min(-a,-b)$ et que la valeur de coup pour le joueur adverse et la négation du
+		coup pour le joueur courant, pour simplifier l'algorithme en n'utilisant que des \emph{max}
+		au lieu d'une alternance \emph{max}, \emph{min}.
+
+		\item[Neurone] Un neurone artificiel est composé d'entrées pondérées, plus le poids est fort plus l'entrée
+		influence la valeur de sortie. Les valeurs des entrées sont combinés grâce à une fonction de
+		combinaison, le plus souvent la fonction somme suivante: $net_j = \sum\limits_{i=0}^n x_i  w_{ij}$.
+		Enfin la valeur de sortie du neurone est calculée de la façon suivante: $O_j = \tanh{}(net_j)$.
+		L'utilisation de la tangente hyperbolique, une fonction Sigmoïde, permet une activation non linéaire
+		et possède une sortie dans l'intervale -1 à 1.
+
+		\item[Perceptron multicouche] Réseau de neurones formel organisé en plusieurs couche utilisant une fonction de sortie
+		de type sigmoïde. Utiliser comme classifieur non linéaire ou pour la régression de fonction inconnue.
+
+		%\item[Recherche Monte-Carlo (Monte-Carlo Tree Search)] La recherche arborescente de Monte-Carlo est une recherche
+		%où l'on construit un arbre de recherche n\oe{}uds à n\oe{}uds en fonction du résultat de parties simulées aléatoirement.
+
+		\item[Table de transposition] Permet de conserver en mémoire l'évaluation d'un n\oe{}ud et ainsi éviter une réévalutation
+		coûteuse.
+	\end{description}

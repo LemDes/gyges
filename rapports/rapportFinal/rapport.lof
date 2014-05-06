@@ -1,0 +1,33 @@
+\select@language {french}
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {1.1}{\ignorespaces Deep blue: ordinateur ayant battu Kasparov aux \IeC {\'e}checs\relax }}{1}
+\contentsline {figure}{\numberline {1.2}{\ignorespaces Exemple de plateau de Gyg\IeC {\`e}s\relax }}{2}
+\contentsline {figure}{\numberline {1.3}{\ignorespaces D\IeC {\'e}placement d'un pion 1\relax }}{3}
+\contentsline {figure}{\numberline {1.4}{\ignorespaces D\IeC {\'e}placement d'un pion 2\relax }}{3}
+\contentsline {figure}{\numberline {1.5}{\ignorespaces D\IeC {\'e}placement d'un pion 3\relax }}{3}
+\contentsline {figure}{\numberline {1.6}{\ignorespaces Exemple de rebond\relax }}{3}
+\contentsline {figure}{\numberline {1.7}{\ignorespaces Exemple de remplacement\relax }}{3}
+\contentsline {figure}{\numberline {1.8}{\ignorespaces Example de d\IeC {\'e}roulement d'une partie de Gyg\IeC {\`e}s\relax }}{4}
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {2.1}{\ignorespaces Repr\IeC {\'e}sentation d'un plateau\relax }}{9}
+\contentsline {figure}{\numberline {2.2}{\ignorespaces Exemple d'arbre de recherche\relax }}{10}
+\contentsline {figure}{\numberline {2.3}{\ignorespaces Minimax \IeC {\'e}tape 1\relax }}{11}
+\contentsline {figure}{\numberline {2.4}{\ignorespaces Minimax \IeC {\'e}tape 2\relax }}{11}
+\contentsline {figure}{\numberline {2.5}{\ignorespaces Minimax \IeC {\'e}tape 3\relax }}{11}
+\contentsline {figure}{\numberline {2.6}{\ignorespaces Pseudo-code de l'algorithme MTD-f\relax }}{14}
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Formule de basic eval}}{17}
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Formule de distance eval}}{17}
+\contentsline {figure}{\numberline {3.3}{\ignorespaces Formule de maxpath eval}}{18}
+\contentsline {figure}{\numberline {3.4}{\ignorespaces Exemple d'un perceptron multicouche\relax }}{19}
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {4.1}{\ignorespaces N\oe {}uds/profondeur\relax }}{22}
+\contentsline {figure}{\numberline {4.2}{\ignorespaces Temps/profondeur\relax }}{23}
+\contentsline {figure}{\numberline {4.3}{\ignorespaces Coups/profondeur\relax }}{24}
+\contentsline {figure}{\numberline {4.4}{\ignorespaces Coups/profondeur\relax }}{25}
+\contentsline {figure}{\numberline {4.5}{\ignorespaces Victoires\relax }}{26}
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {C.1}{\ignorespaces Capture d'\IeC {\'e}cran du jeu\relax }}{36}

@@ -1,0 +1,29 @@
+\section{Perceptron}
+
+	%\subsection{Contexte}
+		% Trouver une fonction d'évaluation correcte est difficile, l'alternative présenté
+		% ici propose d'en approximer une par apprentissage via un perceptron.
+		Trouver une fonction d'évaluation correcte est difficile, il est cependant possible
+		d'en approximer une par apprentissage via un perceptron.
+
+	\subsection{Le perceptron multicouche}
+		Le perceptron multicouche est composé d'un réseau de neurones, reliés ensemble par des liens pondérés,
+		organisé en plusieurs couches, d'une fonction d'activation non linéaire, telle que la tangente hyperbolique, et d'un
+		algorithme de rétropropagation du gradient de l'erreur pour permettre de résoudre des problèmes non-linéaires.
+
+		\begin{figure}[h]
+			\centering
+			\includegraphics[width=0.6\textwidth]{images/Perceptron_4layers.png}
+			\caption{Exemple d'un perceptron multicouche}
+			\label{fig:perceptron_multi}
+		\end{figure}
+
+		%\vspace{1em}
+		%Voir figure \ref{fig:perceptron_multi} pour un exemple de perceptron multicouche.
+
+	\subsection{Abandon}
+		L'approximation d'une fonction par un perceptron multicouche nécessite de fournir des données
+		déjà traitées. Tout d'abord, il est difficile de déterminer les plateaux intéressant et étant
+		donné la quantité de plateau a traité. En effet il serait impossible de le faire sans fonction
+		d'évaluation au vu de la limitation de temps du projet. Nous avons donc décidé d'abandonner
+		l'implémentation du perceptron.

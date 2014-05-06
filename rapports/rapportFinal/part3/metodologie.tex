@@ -1,0 +1,51 @@
+\section{Méthodologie de recherche}
+
+	\paragraph{Valeur d'un coup} Pour établir des fonctions heuristiques nous avons du déterminer
+	une manière d'évaluer un plateau, c'est à dire une façon de noter un coup afin de pouvoir déterminer
+	un meilleur coup parmis l'ensemble des coups possibles. Pour cela nous avons essayé diverses stratégies contre
+	des intelligences artificielles déjà existantes ainsi que contre d'autres joueurs plus ou moins expérimentés.
+	Nous avons ensuite gardé celles qui étaient efficace dans la plupart des cas.
+
+	\paragraph{Plateau symètrique} Puisque le plateau est symètrique, nous avons décidé de noter uniquement les plateaux
+	appartenant du joueur Nord. Ainsi pour évaluer les plateaux du joueur Sud nous effectuons une rotation du plateau.\\
+
+	Soit $P$ le plateau initial:
+
+	\[
+		P = \left(
+			\begin{array}{ c c c c }
+				1 & 2 & 1 & 2\\
+				0 & 4 & 0 & 0\\
+				0 & 0 & 4 & 0\\
+				2 & 1 & 1 & 2\\
+			\end{array}
+			\right)
+			+
+			\left(
+			1, 0
+			\right)
+	\]
+
+	\newpage
+	alors $Q$ sera sa rotation:
+
+	\[
+		Q = \left(
+			\begin{array}{ c c c c }
+				2 & 1 & 1 & 2\\
+				0 & 0 & 4 & 0\\
+				0 & 4 & 0 & 0\\
+				1 & 2 & 1 & 2\\
+			\end{array}
+			\right)
+			+
+			\left(
+			0, 1
+			\right)
+	\]
+
+	\paragraph{Mouvements asymètriques} Le fait que le jeu soit asymètrique offre plusieurs façon d'évaluer les plateaux.
+	Il est ainsi possible d'évaluer uniquement sur les points positifs (resp. négatifs) du joueur ou bien,
+	de prendre la différence des points positifs (resp négatifs) du joueur et de son adversaire. Dans le cas
+	de la différence, ce calcul est possible car \[valeurJ_{1} \neq -1*valeurJ_{2}\] Cependant, cela implique une double
+	évaluation du plateau qui augmente donc le temps de calcul et diminue la profondeur de recherche en un temps fixe.

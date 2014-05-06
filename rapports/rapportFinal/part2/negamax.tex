@@ -1,0 +1,112 @@
+\section{Concepts fondamentaux}
+
+	\subsection{Arbre de recherche}
+		La grande majorité des algorithmes de jeu
+		représente une partie sous la forme d'un arbre de recherche, ce qui correspond
+		plus ou moins à un arbre bicolore.
+		La racine représente le plateau en cours, ses sous-n\oe{}uds, de couleur verte, les
+		coups possibles du joueurs ; leurs sous-n\oe{}uds, de couleurs rouge, les coups de
+		l'adversaire ; et ce jusqu'aux feuille de l'arbre. La taille de l'arbre correspond
+		à la profondeur de recherche.
+
+		\begin{figure}[h]
+			\centering
+			\includegraphics[width=0.40\textwidth]{images/arbre_recherche.png}
+			\caption{Exemple d'arbre de recherche}
+			\label{fig:arbre_recherche}
+		\end{figure}
+
+	\subsection{Minimax}
+		Le minimax est un algorithme de recherche simple, il
+		affecte une valeur à chaque noeud, pour une feuille cela représente le résultat
+		de l'évaluation du plateau et pour les autres n\oe{}ud il faut distinguer deux cas:
+
+		\begin{enumerate}
+			\item le n\oe{}ud est vert, il représente un coup du joueur, alors sa valeur
+				vaut la valeur minimal de ses sous-n\oe{}uds : minimiser le prochain coup adverse ; ou
+			\item le n\oe{}ud est rouge, il représente un coup de l'adversaire, alors sa valeur
+				vaut la valeur maximal de ses sous-n\oe{}uds : maximiser son prochain coup.
+		\end{enumerate}
+
+		La racine est de couleur rouge, elle représente le coup précédent de l'adversaire.
+
+		\vspace{1em}
+		On dit que le minimax consiste à minimiser la perte maximum, c'est à dire qu'il choisit
+		un coup maximisant le gain du joueur tout en minimisant celui de l'adversaire.
+
+		\paragraph{Exemple de l'utilisation du minimax}
+			On commence par affecter des valeurs aux noeuds feuilles en utilisant une heuristique
+			déterminant la qualité, ici, du plateau de jeu.
+
+			\begin{figure}[h]
+				\centering
+				\includegraphics[width=0.4\textwidth]{images/minimax_ex_1.png}
+				\caption{Minimax étape 1}
+				\label{fig:minimax_ex_1}
+			\end{figure}
+
+			Ensuite on remonte leurs valeurs sur leur n\oe{}ud parent, ici un n\oe{}ud vert,
+			on choisit donc la valeur minimale $valeur = min(sous noeuds)$.
+
+			\begin{figure}[h]
+				\centering
+				\includegraphics[width=0.4\textwidth]{images/minimax_ex_2.png}
+				\caption{Minimax étape 2}
+				\label{fig:minimax_ex_2}
+			\end{figure}
+
+			Finalement on arrive à la racine, toujours rouge, ou l'on choisit la
+			valeur maximale $valeur = max(sous_noeuds)$.
+
+			\begin{figure}[h]
+				\centering
+				\includegraphics[width=0.4\textwidth]{images/minimax_ex_3.png}
+				\caption{Minimax étape 3}
+				\label{fig:minimax_ex_3}
+			\end{figure}
+
+			Nous avons donc déterminé qu'il faut jouer le $3^{\text{e}}$ coup, de valeur 7.
+
+		\paragraph{Optimisation} Pour optimiser le parcours de l'arbre on effectuera un parcours
+		en profondeur de l'arbre, affectant au fur et à mesure les valeurs des n\oe{}uds.
+
+	\subsection{Negamax}
+		Le negamax est une variante du minimax, qui se sert d'une propriété des jeux à
+		somme nulle, pour en simplifier le code. Grâce au fait que maximiser $f$ équivaut à
+		minimiser $-f$, principe du dualité, on a :
+
+		\vspace{0.50em}
+		\centerline{$max(a, b) = -min(-a, -b)$}
+		\vspace{0.50em}
+
+		\noindent
+		on peut donc retirer le partie conditionnelle de l'algorithme et
+		effectuer uniquement une fonction max sur l'opposé de la valeur,
+		d'où le nom de negamax.
+
+
+%	\subsection{Pseudo-code}
+%
+%		Voici un exemple de pseudo-code pour l'algorithme negamax:
+%
+%		\begin{figure}[h!]
+%		\begin{mdframed}
+%			\begin{alltt}
+%fonction negamax(\(noeud\), \(profondeur\))
+%    si \(noeud\) est une feuille ou si \(profondeur <= 0\) alors
+%        retourner heuristique(\(noeud\)) \(*\) couleur du noeud
+%    fin si
+%
+%    \(best = -\infty{}\)
+%    pour chaque \(sous noeud\) de \(noeud\) faire
+%        \(best = \)max(\(best\), \(-\)negamax(\(sous noeud\), \(profondeur-1\)))
+%    fin pour chaque
+%
+%    retourner \(best\)
+%fin fonction
+%		\end{alltt}
+%		\end{mdframed}
+%
+%	\caption{Pseudo-code de l'algorithme negamax}
+%	\label{fig:pseudocode_negamax}
+%	\end{figure}

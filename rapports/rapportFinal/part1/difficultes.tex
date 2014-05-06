@@ -1,0 +1,46 @@
+\section{Difficultées}
+
+	Traditionnellement les techniques d'intelligence artificielle pour les jeux listent l'intégralité des coups
+	possible, les notent et choisissent le meilleur ; cela en regardant plusieurs coups à l'avance.
+	Voyons donc pourquoi avec ces techniques le jeu de Gygès est un jeu difficile.
+
+	\subsection{Point de vue technique}
+
+		\paragraph{Nombreux coups possible} Le grand nombre de coups évoqué ci-avant pose problème d'un point de vue temps de calcul.
+		En effet, évaluer chaque coup en en regardant plusieurs en avance est très long. Hors pour que la machine soit efficace, il faut qu'elle
+		soit capable d'anticiper plusieurs coups à l'avance.
+
+		\paragraph{Coups semblables} Beaucoup de coups, notamment les remplacements, se ressemblent. Il est de plus possible d'accèder à un même plateau
+		via plusieurs déplacements de pions différents. Il faudrait donc être capable de supprimer efficacement les doublons
+
+		\paragraph{Cycle} Dans le Gygès, il y a beaucoup de cycle possible. Par exemple, il est possible de déplacer aucun pion au delà de la première
+		ligne , voire de rester dans la même configuration que le plateau précedent. Enfin il est possible d'annuler le déplacement d'un pion de
+		l'adversaire par un déplacement symètrique. Il faut donc savoir éviter ou détecter (pour les arrêter) ces cycles afin d'empêcher le jeu
+		de tourner en rond.
+
+		\paragraph{Chemins asymétrique} Les chemins construits sont différents selon les joueurs, cela veut dire
+		que pour un plateau les deux n'ont pas les mêmes probabilités de gagner, il faut donc prendre en compte les
+		deux sens d'un plateau lors de son évaluation.
+
+	\vspace{2em}
+	Mais le Gygès n'est pas seulement un jeu complexe pour les IA, en effet un joueur humain aussi
+	cherchera à envisager les différents coups possible et à en choisir le meilleur.
+
+	\subsection{Point de vue humain}
+
+		\paragraph{Appartenance des pions} Les pions n'ont pas de propriétaire. Les deux joueurs ont la possibilité
+		de déplacer chaque pion, cela implique de construire une stratégie ou chaque pièce pourra être déplacé.
+		Par exemple, le pion que vous souhaitiez déplac au prochain tour pourra être déplacé alors qu'il se trouve
+		sur votre ligne.
+
+		\paragraph{Nombreux coups possible} \`A partir d'un plateau un joueur peut avoir accès à un très grand nombre de
+		coups possible. Par exemple les possibilités d'ouverture d'une partie varie entre 150 et 600. Bien que parmi
+		ces nombreuses possibilités beaucoup soient similaires, il reste difficile de trouver un coup utile n'ouvrant pas
+		de chemin à l'adversaire.
+
+		\paragraph{Complexité du jeu} Les déplacements complexes de pions et les parties rapides rendent difficile l'apprentissage
+		du jeu pour les joueurs humains. De plus, le grand nombre de coup possible rend l'anticipation d'un coup plus difficile que
+		dans les jeux traditionnels (échecs, dames).
+
+		\paragraph{Chemins asymétrique} Les chemins construits par les joueurs ne sont pas forcément utilisable dans les deux sens.
+		Il faut donc constamment s'assurer que les chemins construits ne donnent pas un avantage déterminant à l'adversaire.

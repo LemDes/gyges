@@ -1,0 +1,371 @@
+\documentclass{beamer}
+
+\usepackage[francais]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+\usepackage{beamerthemesplit}
+\usetheme{Boadilla}
+\usecolortheme{beaver}
+\setbeamertemplate{navigation symbols}{}
+\useinnertheme{circles}
+
+\title[Intelligence artificielle pour le Gygès]
+{%
+	Implémentation d’algorithmes d’intelligence artificielle pour le Gygès
+}
+\author{Valentin~\textsc{Lemière} \and Guillaume~\textsc{Desquesnes}}
+\date{26 mars 2013}
+
+\AtBeginSection[]
+{
+	\begin{frame}{Plan}
+		\begin{columns}
+			\column{0.2\textwidth}
+			\column{0.8\textwidth}
+				\tableofcontents[currentsection]
+		\end{columns}
+	\end{frame}
+}
+
+\begin{document}
+
+	\frame{\titlepage}
+
+	\section{Présentation}
+
+	\begin{frame}{Le but}
+		\begin{block}{But du projet}
+			\vspace{0.75em}
+			Réaliser une \alert{intelligence artificielle} de Gygès.
+			\vspace{0.75em}
+		\end{block}
+	\end{frame}
+
+	\begin{frame}{Qu’est ce que le Gygès ?}
+		\begin{columns}
+			\column{0.5\textwidth}
+				Le Gygès est :
+				\vspace{1em}
+				\begin{itemize}
+					\item<2-> Un jeu
+					\vspace{0.75em}
+					\item<3-> \`A deux joueurs
+					\vspace{0.75em}
+					\item<4-> Un plateau $6\times{}6$ et 12 pions
+					\vspace{0.75em}
+					\item<5-> Le but: placer un pion dans la base adverse.
+				\end{itemize}
+
+			\column{0.5\textwidth}
+				\alt<4> {
+					\begin{figure}[h]
+						\centering
+						\includegraphics[width=\textwidth]{images/Gyges.png}
+					\end{figure}
+				} {
+					\alt<5> {
+						\begin{figure}[h]
+							\centering
+							\includegraphics[width=\textwidth]{images/Bases.png}
+						\end{figure}
+					} {
+						\uncover<4> {
+							\begin{figure}[h]
+								\centering
+								\includegraphics[width=\textwidth]{images/Bases.png}
+							\end{figure}
+						}
+					}
+				}
+		\end{columns}
+	\end{frame}
+
+	\begin{frame}{Qu’est ce que le Gygès ?}
+		\begin{columns}
+			\column{0.5\textwidth}
+				Les règles du Gygès:
+
+				\vspace{1em}
+				\begin{itemize}
+					\item<2-> les pions
+					\vspace{0.75em}
+					\item<3-> leurs déplacements
+					\vspace{0.75em}
+					\item<6-> des déplacements spéciaux:
+					\begin{itemize}
+						\item<7-> les rebonds
+						\vspace{0.75em}
+						\item<8-> les remplacements
+					\end{itemize}
+				\end{itemize}
+
+			\column{0.5\textwidth}
+				\alt<2> {
+					\begin{figure}[h!]
+						\centering
+						\includegraphics[width=\textwidth]{images/pawns.png}
+					\end{figure}
+				} {
+					\alt<3-5> {
+						\only<3> {
+							\begin{figure}[h!]
+								\centering
+								\includegraphics[width=\textwidth]{images/move1.png}
+							\end{figure}
+						}
+
+						\only<4> {
+							\begin{figure}[h!]
+								\centering
+								\includegraphics[width=\textwidth]{images/move2.png}
+							\end{figure}
+						}
+
+						\only<5> {
+							\begin{figure}[h!]
+								\centering
+								\includegraphics[width=\textwidth]{images/move3.png}
+							\end{figure}
+						}
+					} {
+						\alt<7> {
+							\begin{figure}[h!]
+								\centering
+								\includegraphics[width=\textwidth]{images/rebond.png}
+							\end{figure}
+						} {
+							\alt<8> {
+								\begin{figure}[h!]
+									\centering
+									\includegraphics[width=\textwidth]{images/Rempl.png}
+								\end{figure}
+							} {
+								\uncover<2> {
+									\begin{figure}[h]
+										\centering
+										\includegraphics[width=\textwidth]{images/Gyges.png}
+									\end{figure}
+								}
+							}
+						}
+					}
+				}
+		\end{columns}
+	\end{frame}
+
+	\begin{frame}{Pourquoi?}
+		\begin{columns}
+			\column{0.5\textwidth}
+				\begin{itemize}
+					\item<1-> Les jeux sont fréquement utilisés comme support de recherche.
+					\vspace{0.75em}
+					\item<2-> Les échecs furent extrémement étudiés.
+					\vspace{0.75em}
+					\item<3-> Le Gygès a un \alert{facteur de branchement} très élevé, plus que les échecs.
+					\vspace{0.75em}
+					\item<4-> Le Gygès présente donc un intérêt de modélisation.
+				\end{itemize}
+
+			\column{0.1\textwidth}
+			\column{0.4\textwidth}
+				\uncover<3-> {
+					\begin{alertblock}{Facteur de branchement}
+					Nombre de coups possibles depuis un plateau.
+					\end{alertblock}
+				}
+		\end{columns}
+	\end{frame}
+
+	\begin{frame}{Les difficultés} % Keep ?
+		\begin{columns}
+			\column{0.5\textwidth}
+				Le Gygès est un jeu complexe, il a en effet:
+
+				\vspace{1em}
+				\begin{itemize}
+					\pause \item Un fort facteur de branchement
+					\vspace{0.75em}
+					\pause \item Des coups qui se ressemblent% | pas facile de les différencier | déterminer si c'est un bon coup
+					\vspace{0.75em}
+					\pause \item Des chemins asymétriques
+				\end{itemize}
+
+			\column{0.5\textwidth}
+				\uncover<3-> {
+					\begin{alertblock}{Chemin asymétrique}
+						Un chemin de pions qui ne peut être pris
+						que dans un seul sens.
+					\end{alertblock}
+				}
+		\end{columns}
+	\end{frame}
+
+	\begin{frame}{Objectifs}
+		Nous avions comme objectifs de développer une IA\\
+		de jeu de Gygès capable de:
+
+		\vspace{1em}
+		\begin{itemize}
+			\pause \item déterminer quels pions peuvent être joués
+			\vspace{0.75em}
+			\pause \item lister les coups possibles
+			\vspace{0.75em}
+			\pause \item évaluer un coup
+			\vspace{0.75em}
+			\pause \item déterminer un bon coup en regardant plusieurs coups à l'avance
+			\vspace{0.75em}
+			\pause \item jouer un coup
+		\end{itemize}
+	\end{frame}
+
+	\section{Développement}
+
+	\begin{frame}{Comment déterminer un coup ?}
+		\centering
+
+		Pour déterminer un coup :
+		\pause $$\downarrow$$
+		on liste tout les coups possibles\pause{},
+		$$\downarrow$$
+		on leur assigne une note\pause{},
+		$$\downarrow$$
+		on choisit le meilleur.
+	\end{frame}
+
+	\begin{frame}{Les fonctions d'évaluation}
+
+		Pour attribuer une note à un plateau on utilise une
+		\alert{fonction d'évaluation}.
+
+		\vspace{1em}
+		\begin{block}{Fonction d'évaluation}
+		\vspace{0.75em}
+			Une fonction qui attribue une note à un
+			plateau, elle représente une stratégie,
+			une manière de jouer.
+		\vspace{0.75em}
+		\end{block}
+		\vspace{1em}
+
+		%Cette fonction retourne un entier correspondant
+		%à la valeur du plateau.
+
+	\end{frame}
+
+	\begin{frame}{Les fonctions d'évaluation}
+		Nous avons trois fonctions d'évaluation différentes:
+
+		\vspace{1em}
+		\begin{itemize}
+			\pause \item BasicEval
+			\vspace{0.75em}
+			\pause \item DistanceEval
+			\vspace{0.75em}
+			\pause \item MaxPathEval
+		\end{itemize}
+	\end{frame}
+
+	\begin{frame}{Choisir un bon coup}
+		\begin{columns}
+			\column{0.5\textwidth}
+				\begin{itemize}
+					\item<1-> On liste les coups sous forme d'arbre.
+					\vspace{0.75em}
+					\item<2-> On leur assigne une note en utilisant une fonction d'évaluation.
+					\vspace{0.75em}
+					\item<3-> Minimax
+					\vspace{0.75em}
+					\item<5-> On choisit le meilleur.
+				\end{itemize}
+
+			\column{0.5\textwidth}
+				\alt<1> {
+					\begin{figure}[h]
+						\centering
+						\includegraphics[width=\textwidth]{images/arbre_recherche.png}
+					\end{figure}
+				} {
+					\alt<2> {
+						\begin{figure}[h]
+							\centering
+							\includegraphics[width=\textwidth]{images/minimax_ex_1.png}
+						\end{figure}
+					} {
+						\alt<3> {
+							\begin{figure}[h]
+								\centering
+								\includegraphics[width=\textwidth]{images/minimax_ex_2.png}
+							\end{figure}
+						} {
+							\begin{figure}[h]
+								\centering
+								\includegraphics[width=\textwidth]{images/minimax_ex_3.png}
+							\end{figure}
+						}
+					}
+				}
+
+		\end{columns}
+	\end{frame}
+
+	\begin{frame}{Choisir un bon coup}
+		\begin{columns}
+			\column{0.5\textwidth}
+				Le MTD-f:
+
+				\vspace{1em}
+				\uncover<1-> {
+					Utilise des tables de transposition
+				}
+
+				\vspace{1em}
+				\uncover<2-> {
+					Pour faire des recherches plus complexes.
+				}
+
+			\column{0.5\textwidth}
+				\uncover<1-> {
+					\begin{alertblock}{Table de transposition}
+						Mémorise la valeur de l'évaluation d'un coup.
+					\end{alertblock}
+				}
+		\end{columns}
+	\end{frame}
+
+	\section{Bilan}
+
+	\begin{frame}{Bilan - Fonction d'évaluations}
+		\begin{figure}[h!]
+			\centering
+			\includegraphics[width=0.7\textwidth]{images/nbNodeDepth.png}
+		\end{figure}
+	\end{frame}
+
+	\begin{frame}{Bilan - Fonction d'évaluations}
+		\begin{figure}[h!]
+			\centering
+			\includegraphics[width=0.7\textwidth]{images/victoireProfFixe.jpg}
+		\end{figure}
+	\end{frame}
+
+	\begin{frame}{Bilan}
+		Perspectives du projet:
+
+		\vspace{1em}
+		\begin{itemize}
+			\item Ajout de nouveaux algorithmes de recherche.
+			\vspace{0.75em}
+			\item Ajout de meilleures fonctions d'évaluation.
+			\vspace{0.75em}
+			\item Améliorer interface graphique.
+		\end{itemize}
+	\end{frame}
+
+	\section{Démonstration}
+
+	\begin{frame}{Démonstration}
+		Démo
+	\end{frame}
+
+\end{document}

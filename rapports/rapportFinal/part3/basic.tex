@@ -1,0 +1,49 @@
+\subsection{Basic eval}
+
+	Cette heuristique a pour but d'éviter d'avoir les pièces $n \in \{1,2,3\}$ sur la $n^{e}$ ligne du joueur tout
+	en essayant de les placer sur la $n^{e}$ ligne adverse. En effet, si un pion de taille 2 est sur la deuxième
+	ligne d'un joueur, ce joueur risquera de perdre dès lors que le pion précédent sera accessible à son adversaire. \\
+
+	On ne pénalisera pas les pièces $n \in \{2,3\}$ sur la $(n-1)^{e}$ ligne puisqu'elles sont plus difficile
+	d'accès et ont moins de chemin possible vers la base adverse. De plus cette version de l'heuristique fonctionne %Vérifier le truc des moins de chemin.
+	très mal à faible profondeur, puisque la plupart des coups ont la même valeur. \\
+
+	Enfin, comme toute les autres heuristiques, elle favorise fortement la victoire tout en pénalisant la défaite.
+
+	\begin{figure}[h!]
+	\[
+		\begin{array}{r c l}
+			f(x,i) &= &
+			\left\{
+			\begin{array}{r l}
+				1 & $si$~ x = i + 1 \\
+				0 & $sinon$\\
+			\end{array}
+			\right. \\
+
+			&& \\
+
+			base(P) &= &
+			\left\{
+			\begin{array}{r l}
+				10000 & $si la base sud de P est occupée$ \\
+				0 & $sinon$ \\
+			\end{array}
+			\right. \\
+
+			&& \\
+
+			value(P) &=&  base(P) + \sum\limits_{i=0}^{2} \sum\limits_{j=0}^{5} f(P_{i,j},i) \\
+
+			&& \\
+
+			basicEval(P,Q) &=& value(P) - value(Q)\\
+		\end{array}
+	\]
+	\caption[Formule de basic eval]{Formule de basic eval avec $P$ la matrice
+	représentant le plateau et $Q$ la matrice représentant le plateau retourné.}
+	\label{fig:formula_basic_eval}
+	\end{figure}
+
+	%\vspace{1em}
+	%Voir figure \ref{fig:formula_basic_eval} pour une formule de cette heuristique.

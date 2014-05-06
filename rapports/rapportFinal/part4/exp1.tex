@@ -1,0 +1,99 @@
+%\begin{comment}
+%	pour chaque fonction d'eval contre une IA aléatoire
+%
+%	1) nb moyen de noeud explorer selon prof
+%	2) temps moyen de calcul selon profondeur
+%	3) rapport 1)/2) selon prof
+%	4) nombre de coups moyen pour gagner selon prof
+%\end{comment}
+
+\newpage
+\section{Valeur des fonction d'evaluation}
+
+	\subsection{Nombre moyen de n\oe{}uds explorés selon la profondeur}
+		
+		Un des points important d'une fonction d'évaluation est sa capacité
+		à créer des valeurs qui vont être élagées, en effet moins de
+		n\oe{}uds sont évalués plus rapide sera le choix du coup.
+		Nous avons donc comparé le nombre de n\oe{}uds évalué en fonction
+		de la profondeur pour chacune des fonctions d'évaluation.
+		
+		\begin{figure}[h!]
+			\centering
+			\includegraphics[width=\textwidth]{images/nbNodeDepth.png}
+			\caption{N\oe{}uds/profondeur}
+			\label{fig:stats_node_depth}
+		\end{figure}
+		
+		On remarque qu'aux profondeurs 1 et 2 le faible nombre de n\oe{}uds
+		évalués ne permet pas de différencier les différentes fonctions d'évaluation.
+		\`A profondeur 3 et 4 la taille de l'arbre de recherche permet un plus grand
+		élagage. Distance eval est la fonction qui permet le plus grand élagage,
+		suivie par Maxpath eval. On découvre que Basic eval s'élague très mal, cela
+		est dû au fait que les valeurs crées ne sont pas assez distinctes.
+	
+	\newpage
+	\subsection{Temps moyen de calcul selon la profondeur}
+	
+		Un autre point important d'une fonction d'évaluation est sa vitesse,
+		en effet on évalue jusqu'a plusieurs millions de n\oe{}uds, la vitesse
+		est donc cruciale.
+		Pour ce test nous avons mesuré le temps utilisé par la fonction sur une
+		partie et nous l'avons divisé par le nombre de coups.
+	
+		\begin{figure}[h!]
+			\centering
+			\includegraphics[width=\textwidth]{images/timeDepth.png}
+			\caption{Temps/profondeur}
+			\label{fig:stats_time_depth}
+		\end{figure}
+		
+		On remarque de nouveau que Distance eval est la fonction la plus
+		rapide, notamment dû au faible nombre de n\oe{}uds évalués ainsi
+		qu'à sa simplicitée.
+		Pour Basic eval le temps est aussi directement lié au nombre de
+		n\oe{}uds évalués.
+		Enfin pour MaxPath eval on observe que malgré un nombre plus faible
+		d'évaluations le temps requis à la profondeur 4 est plus grand,
+		probablement dû à la complexité de la fonction.
+	
+	\newpage
+	\subsection{Nombre de coup par milliseconde selon la profondeur}
+	
+		En faisant le ratio des deux premières statistiques, nous avons
+		donc le nombre de n\oe{}uds évalués par milliseconde en fonction de la profondeur.
+	
+		\begin{figure}[h!]
+			\centering
+			\includegraphics[width=\textwidth]{images/ratio.png}
+			\caption{Coups/profondeur}
+			\label{fig:stats_ratio}
+		\end{figure}
+		
+		On observe que MaxPath eval a un nombre assez constant
+		quelque soit la profondeur, ce qui n'est pas le cas de
+		Basic eval et Distance eval, mais leurs valeurs n'oscillent
+		que entre 20 et 100, ce n'est donc pas vraiment influent
+		sur la capacité des fonctions.
+	
+	\newpage
+	\subsection{Nombre moyen de coups pour gagner selon la profondeur}
+	
+		Au final le point le plus important d'une fonction d'évaluation est
+		sa capacité à gagner. Nous avons donc fait combatre les fonctions
+		d'évaluation contre une fonction jouant au hasard et nous avons
+		regarder le nombre de coups nécessaire pour gagner.
+	
+		\begin{figure}[h!]
+			\centering
+			\includegraphics[width=\textwidth]{images/victNbMoves.png}
+			\caption{Coups/profondeur}
+			\label{fig:stats_nbMovesVict}
+		\end{figure}
+		
+		On note que MaxPath eval qui est la fonction la plus complexe
+		est aussi la fonction la plus performante, nécéssitant que de 2 à 4
+		coups pour gagner. A partir de la profondeur 3 Basic eval gagne aussi
+		rapidement. Mais Distance eval, la fonction la plus simple et la plus
+		rapide, a les scores les plus mauvais, nécéssitant plus de 5 coups
+		pour gagner.

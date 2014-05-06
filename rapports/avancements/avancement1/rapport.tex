@@ -1,0 +1,57 @@
+\documentclass[a4paper]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage[french]{babel}
+
+\title{Rapport d'avancement du projet de Gygès}
+\author{Valentin \textsc{Lemière} - Guillaume \textsc{Desquesnes}}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{Synthèse}
+	Le projet avance normalement, l'objectif du jalon ayant été atteint plus tôt nous 
+	avons pu implémenter une fonction supplémentaire permettant de tester l'IA.
+	Nous avons trouvé une alternative au negamax, le MTD-f.
+
+\section*{Avancement}
+	\subsection*{Achèvements sur la période}
+		\begin{itemize}
+			\item Nouvelle fonction d'évaluation d'un plateau ;
+			\item Possibilité à un joueur d'affronter l'IA ;
+			\item Fonction de recherche du meilleur coup prenant en compte plusieurs coups à l'avance ;
+			\item Recherche sur des alternatives au negamax.
+		\end{itemize}		
+		
+	\subsection*{En cours sur la période}
+		\begin{itemize}
+			\item Modification de la fonction de test d'IA pour permettre l'affrontement de deux IA différentes ;
+			\item Tests de la fonction d'évaluation pour avoir un point de comparaison
+			avec les futures fonctions.			
+		\end{itemize}
+	
+	\subsection*{A venir sur la période suivante}
+		\begin{itemize}
+			\item Recherche sur les tables de transposition, pour le MTD-f ;
+			\item \'Etude de complexité des fonctions d'évaluations ;
+			\item Implémentation d'une fonction plus avancée pour augmenter la profondeur de recherche.
+		\end{itemize}
+	
+\section*{Problèmes}		
+	\subsection*{Problèmes apparus et résolus au cours de la période}
+		\begin{itemize}
+			\item Résolution d'un problème de disparition de pions du à une mauvaise détection de victoire.
+		\end{itemize}
+
+\section*{Actions}
+	\begin{itemize}
+		\item Optimisation du negamax: recherche aspirante ;
+		\item \'Etude de complexité des fonctions d'évaluation ;
+		\item Recherche sur les tables de transpositions ;
+		\item Faire une fonction d'évaluation à la complexité algorithmique plus faible.
+	\end{itemize}
+
+\end{document}

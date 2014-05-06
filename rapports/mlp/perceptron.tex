@@ -1,0 +1,68 @@
+\documentclass[a4paper]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage[french]{babel}
+\usepackage{graphicx}
+\usepackage{caption}
+
+\title{Rapport sur le perceptron}
+\author{Valentin \textsc{Lemière} - Guillaume \textsc{Desquesnes}}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section{Introduction}
+	Trouver une fonction d'évaluation correcte est difficile, l'alternative présenté
+	ici propose d'en approximer une par apprentissage via un perceptron.
+
+\section{Définition d'un neurone artificiel}
+	Un neurone artificiel est composé d'entrées, chacune de ces entrées est associées
+	à un poids, plus le poids est fort plus l'entré à de l'importance sur la valeur de
+	sortie, et inversement. Les valeurs des entrées sont combinés grâce à la fonction de
+	combinaison, le plus souvent la fonction somme suivante: $net_j = \sum\limits_{i=0}^n x_i  w_{ij}$.
+	Enfin la valeur de sortie du neurone est calculée de la façon suivante: $O_j = \tanh{}(net_j)$.
+	L'utilisation de la tangente hyperbolique, une fonction Sigmoïde, permet une activation non linéaire
+	et possède une sortie dans l'intervale -1 à 1.
+
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.8\textwidth]{ArtificialNeuronModel_francais.png}
+		\caption{Exemple d'un neurone artificiel}
+		\label{fig:plateau_de_gyges}
+	\end{figure}
+
+\section{Le perceptron}
+	Le perceptron est un réseau de neurone simple, composé d'entrées et d'une sortie, à valeur
+	booléenne, reliés ensemble par des liens pondérés.
+
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.8\textwidth]{perceptron.png}
+		\caption{Exemple d'un perceptron simple}
+		\label{fig:plateau_de_gyges}
+	\end{figure}
+
+	\newpage
+	\paragraph{Les limites du perceptron} Le perceptron de base est limité aux problèmes linéaires.
+
+\section{Le perceptron multicouche}
+	Le perceptron multicouche est une amélioration du perceptron simple. L'utilisation de plusieurs
+	couches, d'une fonction d'activation non linéaire, telle que la tangente hyperbolique, et un
+	algorithme de rétropropagation du gradient de l'erreur permet de résoudre des problèmes non-linéaires.
+
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.6\textwidth]{Perceptron_4layers.png}
+		\caption{Exemple d'un perceptron multicouche}
+		\label{fig:plateau_de_gyges}
+	\end{figure}
+
+\section{L'algorithme de rétropropagation}
+	
+
+\section{Conclusion}
+
+\end{document}

@@ -1,0 +1,55 @@
+\section{Cahier des charges}
+
+	Pour ce projet nous avions plusieurs étapes a réaliser, les étapes 1--4
+	permettent d'avoir un module de jeu complet permetant le déroullement d'une partie,
+	les étapes 5 et 6 de jouer de façon \og{} intelligente \fg{}, les étapes
+	7 et 8 d'améliorer la performance de l'IA et finallement l'étape 9 de pouvoir
+	facilement laisser un joueur humain affronter l'IA.
+
+	\vspace{1em}
+	\noindent
+	Nous avions comme objectifs:
+
+	\begin{enumerate}
+		\item de commencer par étudier le jeu de Gygès pour pouvoir le modéliser ;
+			\begin{enumerate}%[label=\Alph*]
+				\item lister les règles spéciales ;
+				\item coder le mouvement des pions ; et
+				\item déterminer quels pions chaque joueur peut déplacer.
+			\end{enumerate}
+
+		\vspace{1em}
+		\item de créer un module de jeu permettant le déroulement d'une partie ;
+			\begin{enumerate}%[label=\Alph*]
+				\item création d'un plateau ;
+				\item initialisation des IA ; et
+				\item déroulement tour à tour jusqu'a la victoire d'un des deux joueurs.
+			\end{enumerate}
+
+		\vspace{1em}
+		\item de lister les coups possible à partir d'un plateau:
+			pour chaque pions déplaçable lister quelles sont les positions attégniables ;
+
+		\vspace{1em}
+		\item de déterminer si un coup est légal: existe-t-il un mouvement permettant
+			de passer du plateau de départ à celui d'arrivé ;
+
+		\vspace{1em}
+		\item de créer une fonction d'évaluation de plateau ;
+
+		\vspace{1em}
+		\item d'implémenter un algorithme de recherche alpha-beta, permettant de ne pas
+			jouer au hasard ;
+
+		\vspace{1em}
+		\item de trouver et d'implémenter des fonctions d'évaluation plus performantes,
+			pour jouer de meilleurs coups ;
+
+		\vspace{1em}
+		\item de trouver et implémenter des algorithmes de recherche plus performants,
+			permettant une recherche plus profonde et donc de meilleurs coups ; et
+
+		\vspace{1em}
+		\item de développer une interface graphique pour pouvoir jouer facilement contre
+			une IA.
+	\end{enumerate}

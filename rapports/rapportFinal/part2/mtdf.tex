@@ -1,0 +1,144 @@
+\section{MTD-f}
+
+    \subsection{Présentation}
+        
+        Le MTD-f est une amélioration des algorithmes de types minimax 
+        permettant de réduire le temps de calcul d'un coup mais augmente
+        l'utilisation totale de mémoire.
+
+		\vspace{1em}
+		
+        L'évaluation de plusieurs milliers, voire millions de plateaux,
+        selon la profondeur, rend le calcul d'un coup très long. Or nous
+        avons besoin de réduire au maximum le temps passé à évaluer les
+        plateaux.
+        
+        \vspace{1em}
+        
+        Cependant en évaluant l'ensemble des plateaux, nous allons évaluer plusieurs
+        fois les mêmes plateaux, ce qui est une perte de temps. 
+        Nous pourrions donc utiliser des tables de transposition pour garder
+        en mémoire la valeur d'un plateau et ainsi ne pas le réévaluer.
+        
+
+        %~ \begin{figure}[h!]
+%~ 
+            %~ \begin{framed}
+            %~ \begin{alltt}
+%~ fonction AlphaBetaMémoire(\(racine\), \(\beta{}-1\), \(\beta{}\), \(d\))
+    %~ \(entree\) = \(tableDeTransposition\).recupere(\(racine\))
+    %~ si \(entrée\) existe  et  \(entrée.profondeur >= d \) alors
+        %~ si \( entrée.valeurExacte  \) alors
+            %~ retourne \(racine, entrée.valeur\)
+        %~ si  \( entrée.elagéAlpha\)  alors
+            %~ \(alpha=entrée.valeur\)
+        %~ sinon si \( entrée.elagéBeta \) alors
+            %~ \(beta=entrée.valeur\)
+        %~ si \( \alpha{} >= \beta{} \) alors
+            %~ retourne \(racine, entrée.valeur\)
+    %~ si \( d = 0\) ou \(racine.estFeuille \)
+        %~ \(valeur\)=evaluer(\(racine\))
+        %~ si  \( valeur <= \alpha{} \) 
+            %~ \(tableDeTransposition\).stocke(\(racine,elagéAlpha,d\))
+        %~ sinon si \( valeur >= \beta{} \) 
+            %~ \(tableDeTransposition\).stocke(\(racine,elagéBeta,d\))
+        %~ si \( valeur <= \alpha{} \)
+            %~ \(tableDeTransposition\).stocke(\(racine,valeurExacte,d\))
+        %~ retourner \(racine, valeur\)
+    %~ \(meilleur\)=-\infty{} \)
+    %~ pour chaque \(coup\) suivant de \(racine\) faire
+        %~ \(valeur\)=\(-1*\)AlphaBetaMémoire(\(coup,-1*\beta{} ,-1*\alpha{},d-1\)).\(valeur\)
+        %~ si \( valeur > meilleur \)
+            %~ \(meilleur=valeur\)
+            %~ \(meilleurPlateau=coup \)
+        %~ si \( meilleur > \alpha{} \)
+            %~ \( \alpha{}=meilleur \)
+        %~ si \( meilleur => \beta{} \)
+            %~ sortir
+    %~ si  \( meilleur <= \alpha{} \) 
+        %~ \(tableDeTransposition\).stocke(\(meilleurPlateau,elagéAlpha,d\))
+    %~ sinon si \( meilleur >= \beta{} \) 
+        %~ \(tableDeTransposition\).stocke(\(meilleurPlateau,elagéBeta,d\))
+    %~ si \( meilleur <= \alpha{} \)
+        %~ \(tableDeTransposition\).stocke(\(meilleurPlateau,valeurExacte,d\))
+    %~ retourner \(racine, valeur\)        
+%~ fin fonction\end{alltt}\end{framed}
+            %~ \caption{Pseudo-code de l'algorithme MTD-f}
+            %~ \label{fig:pseudocode_mtdf}
+        %~ \end{figure}
+        
+
+
+    %~ \subsection{Tables de transposition}
+        
+        \paragraph{Tables de transposition}
+        Les tables de transpostion correspondent à des tableaux associatifs
+        reliant un couple (plateau, profondeur) à l'évaluation du plateau.
+        
+        L'avantage des tableaux associatifs est que l'ajout et la lecture 
+        d'éléments est en $O(1)$
+
+    \subsection{Algorithme}
+    
+    Le pseudo-code de la fonction AlphaBetaAvecMémoire est disponible en
+    anglais sur le site \texttt{http://people.csail.mit.edu/plaat/mtdf.html}
+	
+	\vspace{1em}
+	Voir figure \ref{fig:pseudocode_mtdf} pour le pseudo-code du MTD-f.
+
+    \begin{figure}[h!]
+
+        \begin{framed}
+        \begin{alltt}
+fonction MTDF(\(racine\), \(f\), \(d\))
+    \(g = f\)
+    \(limiteMax = +\infty{}\)
+    \(limiteMin = -\infty{}\)
+
+    tant que \(limiteMin < limiteMax\) alors
+        si \(g = limiteMin\) alors
+            \(\beta{} = g+1\)
+        sinon
+           \(\beta{} = g\)
+        fin si
+
+        \(g =\) AlphaBetaAvecMémoire(\(racine\), \(\beta{}-1\), \(\beta{}\), \(d\))
+
+        si \(g < \beta{}\) alors
+            \(limiteMax = g\)
+        sinon
+            \(limiteMin = g\)
+        fin si
+    fin tant que
+
+    retourner \(g\)
+fin fonction
+
+        \end{alltt}
+        \end{framed}
+
+        \caption{Pseudo-code de l'algorithme MTD-f}
+    \label{fig:pseudocode_mtdf}
+    \end{figure}
+
+
+    \paragraph{Différences} Le minimax est l'algorithme le 
+    plus simple pour résoudre le problème d'un arbre de recherche,
+	il fonctionne en effectuant un parcours en profondeur de l'arbre.
+	Il fut amélioré avec l'élagage alpha-beta notamment. 
+    
+    \vspace{1em}
+    Le MTD-f est différent de l'élagage alpha-beta, en effectuant uniquement
+	des recherche à fenêtre nulle cela lui permet d'élager bien plus et donc
+	d'être plus rapide, mais cela ne lui permet pas d'avoir autant d'information,
+	seulement une fenêtre sur le résultat. Pour avoir le résultat exact MTD-f appel
+	donc un algorithme alpha-beta plusieurs fois jusqu'à trouver la bonne valeur.
+	
+	\vspace{1em}
+	Le coup lié à la réexploration d'une partie de l'arbre de recherche, dû aux
+	multiples appels à un algorithme alpha-beta, est compensé par l'utilisation
+	de table de transposition évitant la réévaluation de n\oe{}uds déjà évalués.
+	
+	\vspace{1em}
+	Une recherche à fenêtre nulle correspond à l'algorithmes alpha-beta
+	où le paramètre alpha vaut beta-1.
